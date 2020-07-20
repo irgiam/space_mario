@@ -182,11 +182,11 @@ public class PlayerController : MonoBehaviour
 
     void LoseLive()
     {
-        if (UIController.instance.playerLives.Count != 0)
+        if (InGameView.instance.playerLives.Count != 0)
         {
-            Destroy(UIController.instance.playerLives[UIController.instance.playerLives.Count - 1]);
-            GameObject losenLive = UIController.instance.playerLives[UIController.instance.playerLives.Count - 1];
-            UIController.instance.playerLives.Remove(losenLive);
+            Destroy(InGameView.instance.playerLives[InGameView.instance.playerLives.Count - 1]);
+            GameObject losenLive = InGameView.instance.playerLives[InGameView.instance.playerLives.Count - 1];
+            InGameView.instance.playerLives.Remove(losenLive);
         }
     }
 }

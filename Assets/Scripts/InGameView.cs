@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIController : MonoBehaviour
+public class InGameView : MonoBehaviour
 {
-    public static UIController instance;
+    public static InGameView instance;
     public List<GameObject> playerLives = new List<GameObject>();
 
     private void Awake()
