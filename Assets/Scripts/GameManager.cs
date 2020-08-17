@@ -6,16 +6,39 @@ public enum GameState //simply create a new enum, which works like an object and
 {
     menu,
     inGame,
-    gameOver
+    gameOver,
 }
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     public Canvas inGameView;
     public Canvas menuView;
     public Canvas gameOverView;
 
     public GameState currentGameState;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    private void Start()
+    {
+        SetGameState(GameState.menu);
+    }
+
+    private void Update()
+    {
+        if (currentGameState == GameState.menu)
+        {
+            Time.timeScale = 0;
+        }
+        else if (currentGameState == GameState.inGame)
+        {
+            Time.timeScale = 1;
+        }
+    }
 
     void SetGameState(GameState newGameState)
     {
@@ -23,20 +46,39 @@ public class GameManager : MonoBehaviour
         {
             menuView.enabled = true;
             inGameView.enabled = false;
-            //gameOverView.enabled = false;
+            gameOverView.enabled = false;
         }
         else if (newGameState == GameState.inGame)
         {
             menuView.enabled = false;
             inGameView.enabled = true;
-            //gameOverView.enabled = false;
+            gameOverView.enabled = false;
         }
         else if (newGameState == GameState.gameOver)
         {
             menuView.enabled = false;
             inGameView.enabled = false;
-            //gameOverView.enabled = true;
+            gameOverView.enabled = true;
         }
         currentGameState = newGameState;
+    }
+
+    public void NewGame() //attached to play button in unity editor
+    {
+        SetGameState(GameState.inGame);
+        InGameView.instance.StartGame();
+        //Debug.Log("error");
+    }
+
+    public void GameOver()
+    {
+        SetGameState(GameState.gameOver);
+        Time.timeScale = 0;
+    }
+
+    public void PlayAgain()
+    {
+        NewGame();
+        PlayerController.instance.StartGame();
     }
 }
