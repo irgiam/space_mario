@@ -22,37 +22,42 @@ public class PlayerController : MonoBehaviour
     public float spriteBlinkingTotalTimer = 0.0f;
     public float spriteBlinkingTotalDuration = 1.0f;
     public bool startBlinking = false;
+    public Vector2 startPosition;
 
     private void Awake()
     {
         instance = this;
         rigidBody = this.GetComponent<Rigidbody2D>();
         thisAnimator = this.GetComponent<Animator>();
+        startPosition = this.transform.position;
     }
-    // Start is called before the first frame update
-    void Start()
+    
+    public void StartGame()
     {
-        
+        this.transform.position = startPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
-        horizontalMove = Input.GetAxisRaw("Horizontal");
-        thisAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove * runSpeed));
-        thisAnimator.SetBool("IsJumping", !IsGrounded());
-        if (horizontalMove < 0 && facingRight == true)
+        if (GameManager.instance.currentGameState == GameState.inGame)
         {
-            Flip();
-        }
-        else if (horizontalMove > 0 && facingRight == false)
-        {
-            Flip();
-        }
+            horizontalMove = Input.GetAxisRaw("Horizontal");
+            thisAnimator.SetFloat("Speed", Mathf.Abs(horizontalMove * runSpeed));
+            thisAnimator.SetBool("IsJumping", !IsGrounded());
+            if (horizontalMove < 0 && facingRight == true)
+            {
+                Flip();
+            }
+            else if (horizontalMove > 0 && facingRight == false)
+            {
+                Flip();
+            }
 
-        if (startBlinking == true)
-        {
-            SpriteBlinkingEffect();
+            if (startBlinking == true)
+            {
+                SpriteBlinkingEffect();
+            }
         }
     }
 
@@ -79,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
     bool IsGrounded()
     {
-        if (Physics2D.Raycast(this.transform.position, Vector2.down, 1f, groundLayer.value))
+        if (Physics2D.Raycast(this.transform.position, Vector2.down, 1.5f, groundLayer.value))
         {
             return true;
         }
@@ -184,9 +189,11 @@ public class PlayerController : MonoBehaviour
     {
         if (InGameView.instance.playerLives.Count != 0)
         {
-            Destroy(InGameView.instance.playerLives[InGameView.instance.playerLives.Count - 1]);
-            GameObject losenLive = InGameView.instance.playerLives[InGameView.instance.playerLives.Count - 1];
-            InGameView.instance.playerLives.Remove(losenLive);
+            InGameView.instance.LoseLives();
+        }
+        else
+        {
+            GameManager.instance.GameOver();
         }
     }
 }

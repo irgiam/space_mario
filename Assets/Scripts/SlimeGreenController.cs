@@ -80,24 +80,11 @@ public class SlimeGreenController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            Attack();
-        }
-    }
-
     private void OnCollisionExit2D(Collision2D collision)
     {
         //runSpeed = tempRunSpeed;
         rigidBody.mass = 10;
         runSpeed = 1.5f;
-    }
-
-    void Attack()
-    {
-        Debug.Log("test");
     }
 
     public LayerMask wallLayer;
