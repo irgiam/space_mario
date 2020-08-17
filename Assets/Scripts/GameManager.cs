@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     {
         SetGameState(GameState.inGame);
         InGameView.instance.StartGame();
+        EnemyManager.instance.SpawnEnemy();
         //Debug.Log("error");
     }
 
