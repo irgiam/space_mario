@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public Canvas menuView;
     public Canvas gameOverView;
 
+    public int collectedCoin = 0;
+
     public GameState currentGameState;
 
     private void Awake()

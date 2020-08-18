@@ -9,10 +9,19 @@ public class InGameView : MonoBehaviour
     public static InGameView instance;
     public GameObject healthParent;
     public List<Image> playerLives = new List<Image>(); //health1 pos = (-320, 170), x+=40
+    public Text coinScore;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Update()
+    {
+        if (GameManager.instance.currentGameState == GameState.inGame)
+        {
+            coinScore.text = GameManager.instance.collectedCoin.ToString();
+        }
     }
 
     public void StartGame()
