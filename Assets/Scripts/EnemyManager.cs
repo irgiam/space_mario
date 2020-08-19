@@ -18,9 +18,9 @@ public class EnemyManager : MonoBehaviour
     {
         if (enemy.Count > 0)
         {
-            for (int i=0; i<enemy.Count; i++)
+            foreach(GameObject thisEnemy in enemy)
             {
-                Destroy(enemy[i].gameObject);
+                Destroy(thisEnemy);
             }
             enemy.Clear();
         }
