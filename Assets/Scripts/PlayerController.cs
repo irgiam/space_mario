@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     float horizontalMove;
     private Vector3 velocity = Vector3.zero;
     private float movementSmoothing = 0.005f;
+    bool isJumping = false;
 
     public float spriteBlinkingTimer = 0.0f;
     public float spriteBlinkingMiniDuration = 0.05f;
@@ -58,24 +59,25 @@ public class PlayerController : MonoBehaviour
             {
                 SpriteBlinkingEffect();
             }
+            if (Input.GetButtonDown("Jump") && IsGrounded())
+            {
+                isJumping = true;
+            }
         }
     }
 
     private void FixedUpdate()
     {
         HanddleMovement(horizontalMove);
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            Jump();
-        }
+        Jump();
     }
 
     void Jump()
     {
-        if (IsGrounded())
+        if (/*IsGrounded() && */isJumping==true)
         {
             rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            isJumping = false;
             //AudioManager.instance.PlayJump();
         }
     }
@@ -84,7 +86,8 @@ public class PlayerController : MonoBehaviour
 
     bool IsGrounded()
     {
-        if (Physics2D.Raycast(this.transform.position, Vector2.down, 1.5f, groundLayer.value))
+        if (Physics2D.Raycast(this.transform.position, Vector2.down, 1f, groundLayer.value))
+        //if (Physics2D.OverlapCircle(damageController.transform.position, 0.5f, groundLayer))
         {
             return true;
         }
