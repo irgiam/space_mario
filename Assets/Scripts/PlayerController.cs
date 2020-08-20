@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigidBody;
     Animator thisAnimator;
     public PlayerDamageController damageController;
+    public AudioSource jumpSound;
 
 
     bool facingRight = true;
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Jump") && IsGrounded())
             {
                 isJumping = true;
+                jumpSound.Play();
             }
         }
     }

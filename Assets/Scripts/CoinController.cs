@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class CoinController : MonoBehaviour
 {
+    public AudioSource getCoinSound;
+    SpriteRenderer thisSprite;
+    Collider2D thisCollider;
+
+    private void Awake()
+    {
+        thisSprite = this.GetComponent<SpriteRenderer>();
+        thisCollider = this.GetComponent<Collider2D>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
@@ -14,7 +24,9 @@ public class CoinController : MonoBehaviour
 
     void Collected()
     {
+        getCoinSound.Play();
         GameManager.instance.collectedCoin++;
-        this.gameObject.SetActive(false);
+        thisSprite.enabled = false;
+        thisCollider.enabled = false;
     }
 }
