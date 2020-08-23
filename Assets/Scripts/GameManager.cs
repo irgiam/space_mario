@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState //simply create a new enum, which works like an object and can be passed to the method as a parameter
 {
@@ -83,5 +84,10 @@ public class GameManager : MonoBehaviour
     {
         NewGame();
         PlayerController.instance.StartGame();
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
