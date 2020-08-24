@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Canvas inGameView;
     public Canvas menuView;
     public Canvas gameOverView;
+    public static int playerLivesInt = 3;
 
     public int collectedCoin = 0;
 
