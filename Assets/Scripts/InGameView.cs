@@ -27,7 +27,7 @@ public class InGameView : MonoBehaviour
     public void StartGame()
     {
         Vector2 uiPosition = new Vector2(-320, 170);
-        for (int i=0; i<GameManager.playerLivesInt; i++)
+        for (int i=0; i<GameManager.instance.setPlayerLivesInt; i++)
         {
             Image life = (Image)Instantiate(playerLivesPrefab);
             life.transform.SetParent(healthParent.transform, false);

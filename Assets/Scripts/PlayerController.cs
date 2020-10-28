@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour
         if (InGameView.instance.playerLives.Count != 0)
         {
             InGameView.instance.LoseLives();
-            GameManager.playerLivesInt -= 1;
+            //GameManager.instance.setPlayerLivesInt -= 1;
         }
         else
         {

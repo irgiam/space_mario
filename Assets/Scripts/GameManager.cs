@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public Canvas inGameView;
     public Canvas menuView;
     public Canvas gameOverView;
-    public static int playerLivesInt = 3;
+    public int setPlayerLivesInt = 3; //untuk inisiasi
 
     public int collectedCoin = 0;
 
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void PlayAgain()
+    public void PlayAgain() //attached to play button in unity editor
     {
         NewGame();
         PlayerController.instance.StartGame();
